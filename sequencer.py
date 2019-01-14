@@ -235,7 +235,7 @@ class SEQUENCER_OT_SelectCurrentFrame(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return bpy.context.area.type=='SEQUENCE_EDITOR' and bpy.context.scene.sequence_editor is not None
+        return bpy.context.area.type == 'SEQUENCE_EDITOR' and bpy.context.scene.sequence_editor
 
     def execute(self, context):
         current_frame = bpy.context.scene.frame_current
@@ -272,7 +272,7 @@ class SEQUENCER_OT_SelectCurrentFrame(bpy.types.Operator):
 
 
 class SEQUENCER_OT_SelectChannel(Operator):
-    """Add Entire Channel to Selection"""
+    """Add channel to selection"""
 
     bl_idname = "sequencer.select_channel"
     bl_label = "Select Channel"
@@ -287,14 +287,11 @@ class SEQUENCER_OT_SelectChannel(Operator):
         if not selection:
             return {'CANCELLED'}
 
-        selection = sorted(selection, key=attrgetter('channel', 'frame_final_start'))
-
         sequences = bpy.context.scene.sequence_editor.sequences_all
 
         for s in selection:
             for strip in sequences:
-                if s.channel == strip.channel:
-                    strip.select = strip.channel == s.channel
+                strip.select = strip.channel == s.channel
 
         return {'FINISHED'}
 
@@ -1027,7 +1024,7 @@ class SEQUENCER_OT_Concatenate(bpy.types.Operator):
 
 
 class SEQUENCER_OT_SplitMode(bpy.types.Operator):
-    """Split either selected or all unselected strips at current frame"""
+    """Split either selected or all unselected strips at current frame with preview"""
     
     bl_idname = "sequencer.split_mode"
     bl_label = "Split Mode..."
