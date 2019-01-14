@@ -238,18 +238,8 @@ class SEQUENCER_MT_view_preview(Menu):
         layout.separator()
 
         layout.operator("sequencer.preview_selected", text = "Selected")
-        layout.operator("sequencer.set_preview_range", text = "Set In").type = "IN"
-        layout.operator("sequencer.set_preview_range", text = "Set Out").type = "OUT"
-
-
-class SEQUENCER_MT_view_channel(Menu):
-    bl_label = "Channel"
-
-    def draw(self, context):
-        layout = self.layout
-
-        layout.operator("sequencer.view_channel", text = "Solo").type = "SOLO"
-        layout.operator("sequencer.view_channel", text = "All").type = "ALL"
+        layout.operator("sequencer.set_preview_range", text = "Set Start").type = "START"
+        layout.operator("sequencer.set_preview_range", text = "Set End").type = "END"
 
 
 class SEQUENCER_MT_view(Menu):
@@ -278,8 +268,6 @@ class SEQUENCER_MT_view(Menu):
             layout.menu("SEQUENCER_MT_view_zoom")
 
             layout.menu("SEQUENCER_MT_view_preview")
-
-            layout.menu("SEQUENCER_MT_view_channel")
 
             layout.operator_context = 'INVOKE_DEFAULT'
 
@@ -450,7 +438,7 @@ class SEQUENCER_MT_select_channel(Menu):
     def draw(self, context):
         layout = self.layout
 
-        layout.operator("sequencer.select_channel", text="All")
+        layout.operator("sequencer.select_channel_strips", text="All")
         layout.operator("sequencer.select_active_side", text="Left").side = 'LEFT'
         layout.operator("sequencer.select_active_side", text="Right").side = 'RIGHT'
 
@@ -519,8 +507,8 @@ class SEQUENCER_MT_select(Menu):
         layout.separator()
 
         # The following two functions should be moved into the Grouped menu:
-        layout.operator("sequencer.select_all_locked_strips", text = "Locked")
-        layout.operator("sequencer.select_all_mute_strips", text ="Muted")
+        layout.operator("sequencer.select_locked_strips", text = "Locked")
+        layout.operator("sequencer.select_mute_strips", text ="Muted")
 
         layout.separator()
 
@@ -706,10 +694,10 @@ class SEQUENCER_MT_add_transitions(Menu):
     bl_label = "Transitions"
 
     def draw(self, context):
-        if context.selected_sequences:
-            selected_seq = len(context.selected_sequences)
-        else:
-            selected_seq = 0
+        def sel_sequences(context):
+            return len(getattr(context, "selected_sequences", ())) 
+
+        selected_seq = sel_sequences(context)
 
         layout = self.layout
 
@@ -731,10 +719,10 @@ class SEQUENCER_MT_add_effect(Menu):
     bl_label = "Effect Strip"
 
     def draw(self, context):
-        if context.selected_sequences:
-            selected_seq = len(context.selected_sequences)
-        else:
-            selected_seq = 0
+        def sel_sequences(context):
+            return len(getattr(context, "selected_sequences", ())) 
+
+        selected_seq = sel_sequences(context)
 
         layout = self.layout
         layout.operator_context = 'INVOKE_REGION_WIN'
@@ -957,7 +945,6 @@ class SEQUENCER_MT_strip(Menu):
 
                 layout.operator_menu_enum("sequencer.strip_modifier_add", "type", text="Add Modifier")
                 layout.operator("sequencer.strip_modifier_copy", text = "Copy Modifiers to Selection")
-                layout.operator("sequencer.toggle_all_modifiers", text ="Toggle All Modifiers")
 
         layout.separator()
 
@@ -1872,7 +1859,6 @@ classes = (
     SEQUENCER_MT_view,
     SEQUENCER_MT_view_render,
     SEQUENCER_MT_view_toggle,
-    SEQUENCER_MT_view_channel,
     SEQUENCER_MT_preview_zoom,
     SEQUENCER_MT_view_zoom,
     SEQUENCER_MT_view_preview,
