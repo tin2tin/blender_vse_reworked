@@ -271,11 +271,11 @@ class SEQUENCER_OT_SelectCurrentFrame(bpy.types.Operator):
         return {"FINISHED"}
 
 
-class SEQUENCER_OT_SelectChannel(Operator):
-    """Add channel to selection"""
+class SEQUENCER_OT_SelectChannelStrips(Operator):
+    """Add all strips in channel to selection"""
 
-    bl_idname = "sequencer.select_channel"
-    bl_label = "Select Channel"
+    bl_idname = "sequencer.select_channel_strips"
+    bl_label = "Select Channel Strips"
     bl_options = {'REGISTER', 'UNDO'}
 
     @classmethod
@@ -296,12 +296,12 @@ class SEQUENCER_OT_SelectChannel(Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_SelectAllLockedStrips(bpy.types.Operator):
-    """Select all locked strips"""
+class SEQUENCER_OT_SelectLockedStrips(bpy.types.Operator):
+    """Select locked strips"""
     
-    bl_idname = "sequencer.select_all_locked_strips"
-    bl_label = "Select All Locked Strips"
-    bl_description = "Select all locked strips"
+    bl_idname = "sequencer.select_locked_strips"
+    bl_label = "Select Locked Strips"
+    bl_description = "Select locked strips"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -326,12 +326,12 @@ class SEQUENCER_OT_SelectAllLockedStrips(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_SelectAllMuteStrips(bpy.types.Operator):
-    """Select all muted/hidden strips"""
+class SEQUENCER_OT_SelectMuteStrips(bpy.types.Operator):
+    """Select muted strips"""
     
-    bl_idname = "sequencer.select_all_mute_strips"
-    bl_label = "Select All Muted/Hidden"
-    bl_description = "Select all muted/hidden strips"
+    bl_idname = "sequencer.select_mute_strips"
+    bl_label = "Select Muted"
+    bl_description = "Select all muted"
     bl_options = {"REGISTER", "UNDO"}
 
     @classmethod
@@ -352,51 +352,6 @@ class SEQUENCER_OT_SelectAllMuteStrips(bpy.types.Operator):
                     strip.select = True
         except:
             pass
-
-        return {'FINISHED'}
-
-
-class SEQUENCER_OT_ToggleAllModifiers(bpy.types.Operator):
-    """Toggle all modifiers on/off"""
-    
-    bl_idname = "sequencer.toggle_all_modifiers"
-    bl_label = "Toggle all modifiers"
-    bl_description = "Toggle all modifiers on/off"
-    bl_options = {"REGISTER", "UNDO"}
-
-    @classmethod
-    def poll(cls, context):
-        return bpy.context.scene is not None
-
-    selection_only: BoolProperty(
-        name="Only Selected",
-        default=False,
-        description="Only apply to selected strips")
-
-    showhide: EnumProperty(
-        items = [('show', 'Show', 'Make modifiers visible'),
-                ('hide', 'Hide', 'Make modifiers not visible'),
-                ('toggle', 'Toggle', 'Toggle modifier visilibity per modifier')],
-        name = "show/hide",
-        default="toggle",
-        description = "Show, hide, or toggle all strip modifier")
-
-    def execute(self, context):
-
-        stps = []
-        if self.selection_only==True:
-            stps = [seq for seq in context.scene.sequence_editor.sequences if seq.select]
-        else:
-            stps = context.scene.sequence_editor.sequences
-
-        for stp in stps:
-            for mod in stp.modifiers:
-                if self.showhide=="show":
-                    mod.mute=False
-                elif self.showhide=="hide":
-                    mod.mute=True
-                else:
-                    mod.mute = not mod.mute
 
         return {'FINISHED'}
 
@@ -423,16 +378,16 @@ class SEQUENCER_OT_AudioMuteToggle(bpy.types.Operator):
 
 
 class SEQUENCER_OT_SetPreviewRange(bpy.types.Operator):
-    """Sets preview end to current frame"""
+    """Sets current frame to preview start/end"""
     
     bl_idname = "sequencer.set_preview_range"
-    bl_label = "Preview End to Current"
+    bl_label = "Set Preview Start/End"
     bl_options = {'REGISTER', 'UNDO'}
     type: EnumProperty(
         name="Type", description="Set Type",
         items=(
-            ('IN', "In", "Set In"),
-            ('OUT', "Out", "Set Out"),
+            ('START', "Start", "Set Start"),
+            ('END', "End", "Set End"),
         ),
     )
     @classmethod
@@ -441,7 +396,7 @@ class SEQUENCER_OT_SetPreviewRange(bpy.types.Operator):
 
     def execute(self, context):
         scene = bpy.context.scene
-        if self.type == "OUT":
+        if self.type == "END":
             # the -1 below is because we want the scene to end where the cursor is
             # positioned, not one frame after it (as scene.frame_current behaves)
             scene.frame_end = scene.frame_current - 1
@@ -1068,45 +1023,6 @@ class SEQUENCER_OT_SplitMode(bpy.types.Operator):
         return {'RUNNING_MODAL'}
 
 
-class SEQUENCER_OT_ViewChannel(Operator):
-    """View all channels or active strip channel solo"""
-
-    bl_idname = "sequencer.view_channel"
-    bl_label = "View Channels or Solo"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    type: EnumProperty(
-        name="Type", description="View Channel Type",
-        items=(
-            ('ALL', "All", "View All Channels"),
-            ('SOLO', "Solo", "View Channel Solo"),
-        ),
-    )
-
-    @classmethod
-    def poll(cls, context):
-        if context.scene and context.scene.sequence_editor and context.scene.sequence_editor.active_strip:
-            return True
-        else:
-            return False
-
-    def execute(self, context):
-        strip = context.scene.sequence_editor.active_strip
-
-        if self.type == "SOLO":
-            bpy.ops.sequencer.select_all(action='DESELECT')
-            bpy.ops.sequencer.unmute(unselected=False)
-            bpy.ops.sequencer.unmute(unselected=True)
-            strip.select = True
-            bpy.ops.sequencer.select_channel()
-            bpy.ops.sequencer.mute(unselected=True)
-        else:
-            bpy.ops.sequencer.select_all(action='DESELECT')
-            bpy.ops.sequencer.unmute(unselected=True)
-            bpy.ops.sequencer.unmute(unselected=False)
-
-        return {'FINISHED'}
-
 classes = (
     SEQUENCER_OT_CrossfadeSounds,
     SEQUENCER_OT_CutMulticam,
@@ -1116,10 +1032,9 @@ classes = (
     SEQUENCER_OT_FlipYSelectedMovies,
     SEQUENCER_OT_ShowWaveformSelectedSounds,
     SEQUENCER_OT_SelectCurrentFrame,
-    SEQUENCER_OT_SelectChannel,
-    SEQUENCER_OT_SelectAllLockedStrips,
-    SEQUENCER_OT_SelectAllMuteStrips,
-    SEQUENCER_OT_ToggleAllModifiers,
+    SEQUENCER_OT_SelectChannelStrips,
+    SEQUENCER_OT_SelectLockedStrips,
+    SEQUENCER_OT_SelectMuteStrips,
     SEQUENCER_OT_AudioMuteToggle,
     SEQUENCER_OT_SetPreviewRange,
     SEQUENCER_OT_PreviewSelected,
@@ -1134,5 +1049,4 @@ classes = (
     SEQUENCER_OT_Move,
     SEQUENCER_OT_Concatenate,
     SEQUENCER_OT_SplitMode,
-    SEQUENCER_OT_ViewChannel,
 )
