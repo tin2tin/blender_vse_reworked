@@ -772,8 +772,8 @@ class SEQUENCER_MT_split(Menu):
     def draw(self, context):
         layout = self.layout
 
-        layout.operator("sequencer.split", text="Soft").type="SOFT"
-        layout.operator("sequencer.split", text="Hard").type="HARD"
+        layout.operator("sequencer.split", text="Soft").type = "SOFT"
+        layout.operator("sequencer.split", text="Hard").type = "HARD"
 
         layout.separator()
 
@@ -781,13 +781,13 @@ class SEQUENCER_MT_split(Menu):
 
         layout.separator()
 
-        layout.operator("sequencer.split_extract", text="Extract Left").direction="LEFT"
-        layout.operator("sequencer.split_extract", text="Extract Right").direction="RIGHT"
+        layout.operator("sequencer.split_extract", text="Extract Left").direction = "LEFT"
+        layout.operator("sequencer.split_extract", text="Extract Right").direction = "RIGHT"
 
         layout.separator()
 
-        layout.operator("sequencer.split_lift", text="Lift Left").direction="LEFT"
-        layout.operator("sequencer.split_lift", text="Lift Right").direction="RIGHT"
+        layout.operator("sequencer.split_lift", text="Lift Left").direction = "LEFT"
+        layout.operator("sequencer.split_lift", text="Lift Right").direction = "RIGHT"
 
 
 class SEQUENCER_MT_edit_remove(Menu):
