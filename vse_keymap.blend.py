@@ -482,14 +482,14 @@ keyconfig_data = \
     ("sequencer.set_preview_range",
      {"type": 'I', "value": 'PRESS'},
      {"properties":
-      [("type", 'IN'),
+      [("type", 'START'),
        ],
       },
      ),
     ("sequencer.set_preview_range",
      {"type": 'O', "value": 'PRESS'},
      {"properties":
-      [("type", 'OUT'),
+      [("type", 'END'),
        ],
       },
      ),
