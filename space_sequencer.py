@@ -278,19 +278,17 @@ class SEQUENCER_MT_view(Menu):
             
             if st.display_mode == 'IMAGE':
 
-                layout.separator()
-
                 layout.prop(st, "show_safe_areas")
                 layout.prop(st, "show_metadata")
 
-            elif st.display_mode == 'WAVEFORM':
-
                 layout.separator()
+
+            elif st.display_mode == 'WAVEFORM':
 
                 layout.prop(st, "show_separate_color") 
 
-            layout.separator()
-            
+                layout.separator()
+
             layout.operator("view2d.zoom_in", text = "Zoom In")
             layout.operator("view2d.zoom_out", text = "Zoom Out")
             layout.operator("view2d.zoom_border", text = "Zoom Box...")
