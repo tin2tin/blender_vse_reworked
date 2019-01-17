@@ -244,29 +244,24 @@ class SEQUENCER_OT_SelectCurrentFrame(bpy.types.Operator):
         lock_sel_num = 0
         reportMessage = ""
         if self.extend == "FALSE": bpy.ops.sequencer.select_all(action='DESELECT')
+        
         for strip in bpy.context.sequences:
             if strip.lock and strip.select:
                 lock_sel_num += 1
-            try:
-                if strip.frame_final_end >= current_frame:
-                    if strip.frame_final_start <= current_frame:
-                        if strip.lock and not strip.select:
-                            lock_num += 1
-                        else:
-                            strip.select=True
-                            context.scene.sequence_editor.active_strip = strip
-                            sel_strips.append(strip)
-            except:
-                pass
+            if strip.frame_final_end >= current_frame:
+                if strip.frame_final_start <= current_frame:
+                    if strip.lock and not strip.select:
+                        lock_num += 1
+                    else:
+                        strip.select=True
+                        context.scene.sequence_editor.active_strip = strip
+                        sel_strips.append(strip)
         if sel_strips != []:
             for strip in sel_strips:
-                try:
-                    if strip.frame_final_end == current_frame:
-                        strip.select_right_handle = True
-                    elif strip.frame_final_start == current_frame:
-                        strip.select_left_handle = True
-                except:
-                    pass
+                if strip.frame_final_end == current_frame:
+                    strip.select_right_handle = True
+                elif strip.frame_final_start == current_frame:
+                    strip.select_left_handle = True
 
         return {"FINISHED"}
 
@@ -315,13 +310,10 @@ class SEQUENCER_OT_SelectLockedStrips(bpy.types.Operator):
         for strip in bpy.context.sequences:
             if strip.lock:
                 lockedStrips.append(strip)
-        try:
-            if lockedStrips != []:
-                bpy.ops.sequencer.select_all(action='DESELECT')
-                for strip in lockedStrips:
-                    strip.select = True
-        except:
-            pass
+        if lockedStrips != []:
+            bpy.ops.sequencer.select_all(action='DESELECT')
+            for strip in lockedStrips:
+                strip.select = True
 
         return {'FINISHED'}
 
@@ -345,13 +337,10 @@ class SEQUENCER_OT_SelectMuteStrips(bpy.types.Operator):
         for strip in bpy.context.sequences:
             if strip.mute:
                 muteStrips.append(strip)
-        try:
-            if muteStrips != []:
-                bpy.ops.sequencer.select_all(action='DESELECT')
-                for strip in muteStrips:
-                    strip.select = True
-        except:
-            pass
+        if muteStrips != []:
+            bpy.ops.sequencer.select_all(action='DESELECT')
+            for strip in muteStrips:
+                strip.select = True
 
         return {'FINISHED'}
 
