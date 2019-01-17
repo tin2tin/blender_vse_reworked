@@ -463,7 +463,7 @@ class SEQUENCER_OT_SplitExtract(bpy.types.Operator):
             return {'CANCELLED'}
 
         #Get current frame selection:
-        bpy.ops.sequencer.select_time_cursor(extend='FALSE')
+        bpy.ops.sequencer.select_current_frame(extend='FALSE')
         cf_selection = bpy.context.selected_sequences
         bpy.ops.sequencer.select_all(action='DESELECT')
 
@@ -510,7 +510,7 @@ class SEQUENCER_OT_SplitLift(bpy.types.Operator):
             return {'CANCELLED'}
 
         #Get current frame selection:
-        bpy.ops.sequencer.select_time_cursor(extend='FALSE')
+        bpy.ops.sequencer.select_current_frame(extend='FALSE')
         cf_selection = bpy.context.selected_sequences
         bpy.ops.sequencer.select_all(action='DESELECT')
 
