@@ -171,8 +171,6 @@ class SEQUENCER_MT_view_render(Menu):
         props = layout.operator("render.opengl", text="Preview Render Animation", icon='RENDER_ANIMATION')
         props.animation = True
         props.sequencer = True
-        layout.separator()
-        layout.operator("sound.mixdown", text="Audio", icon='FILE_SOUND')
 
 
 class SEQUENCER_MT_view_toggle(Menu):
