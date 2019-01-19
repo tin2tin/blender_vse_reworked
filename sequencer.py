@@ -435,11 +435,11 @@ class SEQUENCER_OT_PreviewSelected(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_SplitExtract(bpy.types.Operator):
-    """Splits selected strips and extracts"""
+class SEQUENCER_OT_SplitRemove(bpy.types.Operator):
+    """Splits selected strips and removes"""
     
-    bl_idname = "sequencer.split_extract"
-    bl_label = "Split Extract"
+    bl_idname = "sequencer.split_remove"
+    bl_label = "Split Remove"
     bl_options = {'REGISTER', 'UNDO'}
 
     direction: EnumProperty(
@@ -449,6 +449,13 @@ class SEQUENCER_OT_SplitExtract(bpy.types.Operator):
             ('RIGHT', "Right", "Split Extract Direction Right"),
         ),
     )
+    method: EnumProperty(
+        name="Method", description="Split Remove Method",
+        items=(
+            ('EXTRACT', "Extract", "Split Extract"),
+            ('LIFT', "Lift", "Split Lift"),
+        ),
+    )    
     @classmethod
     def poll(cls, context):
         if context.sequences:
@@ -473,7 +480,10 @@ class SEQUENCER_OT_SplitExtract(bpy.types.Operator):
                     bpy.ops.sequencer.select_all(action='DESELECT')
                     s.select = True
                     sequencer.cut(frame=scene.frame_current, type='SOFT', side=self.direction)
-                    sequencer.ripple_delete()
+                    if self.method == "EXTRACT": 
+                        sequencer.ripple_delete()
+                    else:
+                        sequencer.delete_lift()
                     s.select = False
         for s in selection: s.select = True
 
@@ -1027,7 +1037,7 @@ classes = (
     SEQUENCER_OT_AudioMuteToggle,
     SEQUENCER_OT_SetPreviewRange,
     SEQUENCER_OT_PreviewSelected,
-    SEQUENCER_OT_SplitExtract,
+    SEQUENCER_OT_SplitRemove,
     SEQUENCER_OT_SplitLift,
     SEQUENCER_OT_DeleteLift,
     SEQUENCER_OT_RippleDelete,
