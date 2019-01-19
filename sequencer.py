@@ -490,53 +490,6 @@ class SEQUENCER_OT_SplitRemove(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_SplitLift(bpy.types.Operator):
-    """Splits selected strips and lifts"""
-    
-    bl_idname = "sequencer.split_lift"
-    bl_label = "Split Lift"
-    bl_options = {'REGISTER', 'UNDO'}
-
-    direction: EnumProperty(
-        name="Direction", description="Split Lift Direction",
-        items=(
-            ('LEFT', "Left", "Split Lift Direction Left"),
-            ('RIGHT', "Right", "Split Lift Direction Right"),
-        ),
-    )
-
-    @classmethod
-    def poll(cls, context):
-        if context.sequences:
-            return True
-        return False
-
-    def execute(self, context):
-
-        scene = bpy.context.scene
-        sequencer = bpy.ops.sequencer
-        selection = bpy.context.selected_sequences
-        if not selection:
-            return {'CANCELLED'}
-
-        #Get current frame selection:
-        bpy.ops.sequencer.select_current_frame(extend='FALSE')
-        cf_selection = bpy.context.selected_sequences
-        bpy.ops.sequencer.select_all(action='DESELECT')
-
-        for s in selection:
-            for i in cf_selection:
-                if not s.lock and s == i:
-                    bpy.ops.sequencer.select_all(action='DESELECT')
-                    s.select = True
-                    sequencer.cut(frame=scene.frame_current, type='SOFT', side=self.direction)
-                    sequencer.delete_lift()
-                    s.select = False
-        for s in selection: s.select = True
-
-        return {'FINISHED'}
-
-
 class SEQUENCER_OT_DeleteLift(bpy.types.Operator):
     """Lift selected strips"""
 
@@ -1038,7 +991,6 @@ classes = (
     SEQUENCER_OT_SetPreviewRange,
     SEQUENCER_OT_PreviewSelected,
     SEQUENCER_OT_SplitRemove,
-    SEQUENCER_OT_SplitLift,
     SEQUENCER_OT_DeleteLift,
     SEQUENCER_OT_RippleDelete,
     SEQUENCER_OT_ZoomVertical,
