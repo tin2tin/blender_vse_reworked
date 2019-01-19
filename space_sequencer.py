@@ -589,6 +589,15 @@ class SEQUENCER_MT_navigation_keyframe(Menu):
         props = layout.operator("screen.keyframe_jump", text="Next", icon = "NEXT_KEYFRAME")
         props.next = True
 
+class SEQUENCER_MT_navigation_range(Menu):
+    bl_label = "Range"
+
+    def draw(self, context):
+        layout = self.layout        
+        props = layout.operator("screen.frame_jump", text="Start", icon = "REW")
+        props.end = False
+        props = layout.operator("screen.frame_jump", text="End", icon = "FF")
+        props.end = True        
 
 class SEQUENCER_MT_navigation(Menu):
     bl_label = "Navigation"
@@ -608,12 +617,7 @@ class SEQUENCER_MT_navigation(Menu):
 
         layout.menu("SEQUENCER_MT_navigation_keyframe")
 
-        layout.separator()
-
-        props = layout.operator("screen.frame_jump", text="Start", icon = "REW")
-        props.end = False
-        props = layout.operator("screen.frame_jump", text="End", icon = "FF")
-        props.end = True
+        layout.menu("SEQUENCER_MT_navigation_range")        
 
 
 class SEQUENCER_MT_add(Menu):
@@ -765,14 +769,22 @@ class SEQUENCER_MT_split(Menu):
 
         layout.separator()
 
-        layout.operator("sequencer.split_extract", text="Extract Left").direction = "LEFT"
-        layout.operator("sequencer.split_extract", text="Extract Right").direction = "RIGHT"
+        props = layout.operator("sequencer.split_remove", text="Extract Left")
+        props.direction = "LEFT"
+        props.method = "EXTRACT"
+        props = layout.operator("sequencer.split_remove", text="Extract Right")
+        props.direction = "RIGHT"
+        props.method = "EXTRACT"
 
         layout.separator()
 
-        layout.operator("sequencer.split_lift", text="Lift Left").direction = "LEFT"
-        layout.operator("sequencer.split_lift", text="Lift Right").direction = "RIGHT"
-
+        props = layout.operator("sequencer.split_remove", text="Lift Left")
+        props.direction = "LEFT"
+        props.method = "LIFT"        
+        props = layout.operator("sequencer.split_remove", text="Lift Right")
+        props.direction = "RIGHT"
+        props.method = "LIFT"
+        
 
 class SEQUENCER_MT_edit_remove(Menu):
     bl_label = "Cut"
@@ -1886,6 +1898,7 @@ classes = (
     SEQUENCER_MT_navigation_cut,
     SEQUENCER_MT_navigation_strip,
     SEQUENCER_MT_navigation_keyframe,
+    SEQUENCER_MT_navigation_range,
     SEQUENCER_MT_marker,
     SEQUENCER_PT_edit,
     SEQUENCER_PT_effect,
