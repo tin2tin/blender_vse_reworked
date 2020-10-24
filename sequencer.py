@@ -30,7 +30,7 @@ from bpy.props import (
 )
 
 
-class SEQUENCER_OT_CrossfadeSounds(Operator):
+class SEQUENCER_OT_crossfade_sounds(Operator):
     """Do cross-fading volume animation of two selected sound strips"""
 
     bl_idname = "sequencer.crossfade_sounds"
@@ -81,7 +81,7 @@ class SEQUENCER_OT_CrossfadeSounds(Operator):
             return {'CANCELLED'}
 
 
-class SEQUENCER_OT_CutMulticam(Operator):
+class SEQUENCER_OT_cut_multicam(Operator):
     """Cut multi-cam strip and select camera"""
 
     bl_idname = "sequencer.cut_multicam"
@@ -123,7 +123,7 @@ class SEQUENCER_OT_CutMulticam(Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_DeinterlaceSelectedMovies(Operator):
+class SEQUENCER_OT_deinterlace_selected_movies(Operator):
     """Deinterlace all selected movie sources"""
 
     bl_idname = "sequencer.deinterlace_selected_movies"
@@ -141,7 +141,7 @@ class SEQUENCER_OT_DeinterlaceSelectedMovies(Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_ReverseSelectedMovies(Operator):
+class SEQUENCER_OT_reverse_selected_movies(Operator):
     """Reverse all selected movie sources"""
 
     bl_idname = "sequencer.reverse_selected_movies"
@@ -160,7 +160,7 @@ class SEQUENCER_OT_ReverseSelectedMovies(Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_FlipXSelectedMovies(Operator):
+class SEQUENCER_OT_flip_x_selected_movies(Operator):
     """Flip X of all selected movie sources"""
 
     bl_idname = "sequencer.flip_x_selected_movies"
@@ -179,7 +179,7 @@ class SEQUENCER_OT_FlipXSelectedMovies(Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_FlipYSelectedMovies(Operator):
+class SEQUENCER_OT_flip_y_selected_movies(Operator):
     """Flip Y of all selected movie sources"""
 
     bl_idname = "sequencer.flip_y_selected_movies"
@@ -198,7 +198,7 @@ class SEQUENCER_OT_FlipYSelectedMovies(Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_ShowWaveformSelectedSounds(Operator):
+class SEQUENCER_OT_show_waveform_selected_sounds(Operator):
     """Toggle draw waveform of all selected audio sources"""
 
     bl_idname = "sequencer.show_waveform_selected_sounds"
@@ -218,7 +218,7 @@ class SEQUENCER_OT_ShowWaveformSelectedSounds(Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_SelectCurrentFrame(bpy.types.Operator):
+class SEQUENCER_OT_select_current_frame(bpy.types.Operator):
     """Select strips at current frame"""
 
     bl_idname = "sequencer.select_current_frame"
@@ -266,7 +266,7 @@ class SEQUENCER_OT_SelectCurrentFrame(bpy.types.Operator):
         return {"FINISHED"}
 
 
-class SEQUENCER_OT_SelectChannelStrips(Operator):
+class SEQUENCER_OT_select_channel_strips(Operator):
     """Add all strips in channel to selection"""
 
     bl_idname = "sequencer.select_channel_strips"
@@ -291,7 +291,7 @@ class SEQUENCER_OT_SelectChannelStrips(Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_SelectLockedStrips(bpy.types.Operator):
+class SEQUENCER_OT_select_locked_strips(bpy.types.Operator):
     """Select locked strips"""
     
     bl_idname = "sequencer.select_locked_strips"
@@ -318,7 +318,7 @@ class SEQUENCER_OT_SelectLockedStrips(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_SelectMuteStrips(bpy.types.Operator):
+class SEQUENCER_OT_select_mute_strips(bpy.types.Operator):
     """Select muted strips"""
     
     bl_idname = "sequencer.select_mute_strips"
@@ -345,7 +345,7 @@ class SEQUENCER_OT_SelectMuteStrips(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_AudioMuteToggle(bpy.types.Operator):
+class SEQUENCER_OT_audio_mute_toggle(bpy.types.Operator):
     """Toggle audio on/off"""
     
     bl_idname = "screen.audio_mute_toggle"
@@ -366,7 +366,7 @@ class SEQUENCER_OT_AudioMuteToggle(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_SetPreviewRange(bpy.types.Operator):
+class SEQUENCER_OT_set_preview_range(bpy.types.Operator):
     """Sets current frame to preview start/end"""
     
     bl_idname = "sequencer.set_preview_range"
@@ -397,7 +397,7 @@ class SEQUENCER_OT_SetPreviewRange(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_PreviewSelected(bpy.types.Operator):
+class SEQUENCER_OT_preview_selected(bpy.types.Operator):
     """Sets preview range to selected strips"""
     
     bl_idname = "sequencer.preview_selected"
@@ -435,7 +435,7 @@ class SEQUENCER_OT_PreviewSelected(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_SplitRemove(bpy.types.Operator):
+class SEQUENCER_OT_split_remove(bpy.types.Operator):
     """Splits selected strips and removes"""
     
     bl_idname = "sequencer.split_remove"
@@ -490,7 +490,7 @@ class SEQUENCER_OT_SplitRemove(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_DeleteLift(bpy.types.Operator):
+class SEQUENCER_OT_delete_lift(bpy.types.Operator):
     """Lift selected strips"""
 
     bl_idname = "sequencer.delete_lift"
@@ -520,7 +520,7 @@ class SEQUENCER_OT_DeleteLift(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_RippleDelete(bpy.types.Operator):
+class SEQUENCER_OT_ripple_delete(bpy.types.Operator):
     """Ripple delete selected strips"""
 
     bl_idname = "sequencer.ripple_delete"
@@ -585,7 +585,7 @@ class SEQUENCER_OT_RippleDelete(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_ZoomVertical(bpy.types.Operator):
+class SEQUENCER_OT_zoom_vertical(bpy.types.Operator):
     """Zoom vertical"""
 
     bl_idname = "sequencer.zoom_vertical"
@@ -614,7 +614,7 @@ class SEQUENCER_OT_ZoomVertical(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_Move(bpy.types.Operator):
+class SEQUENCER_OT_move(bpy.types.Operator):
     """Move selection"""
 
     bl_idname = "sequencer.move"
@@ -679,7 +679,7 @@ class SEQUENCER_OT_Move(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_MatchFrame(bpy.types.Operator):
+class SEQUENCER_OT_match_frame(bpy.types.Operator):
     """Add full source to empty channel and match frame"""
 
     bl_idname = "sequencer.match_frame"
@@ -740,7 +740,7 @@ class SEQUENCER_OT_MatchFrame(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_Split(bpy.types.Operator):
+class SEQUENCER_OT_split(bpy.types.Operator):
     """Split Unlocked Un/Seleted Strips Soft"""
 
     bl_idname = "sequencer.split"
@@ -799,7 +799,7 @@ class SEQUENCER_OT_Split(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_ExtendToFill(bpy.types.Operator):
+class SEQUENCER_OT_extend_to_fill(bpy.types.Operator):
     """Extend to fill gaps after selected strips""" 
        
     bl_idname = 'sequencer.extend_to_fill'
@@ -859,7 +859,7 @@ class SEQUENCER_OT_ExtendToFill(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_Concatenate(bpy.types.Operator):
+class SEQUENCER_OT_concatenate(bpy.types.Operator):
     """Concatenate gaps after selected strips"""    
 
     bl_idname = 'sequencer.concatenate'
@@ -930,7 +930,7 @@ class SEQUENCER_OT_Concatenate(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class SEQUENCER_OT_SplitMode(bpy.types.Operator):
+class SEQUENCER_OT_split_mode(bpy.types.Operator):
     """Split either selected or all unselected strips at current frame with preview"""
     
     bl_idname = "sequencer.split_mode"
@@ -976,28 +976,28 @@ class SEQUENCER_OT_SplitMode(bpy.types.Operator):
 
 
 classes = (
-    SEQUENCER_OT_CrossfadeSounds,
-    SEQUENCER_OT_CutMulticam,
-    SEQUENCER_OT_DeinterlaceSelectedMovies,
-    SEQUENCER_OT_ReverseSelectedMovies,
-    SEQUENCER_OT_FlipXSelectedMovies,
-    SEQUENCER_OT_FlipYSelectedMovies,
-    SEQUENCER_OT_ShowWaveformSelectedSounds,
-    SEQUENCER_OT_SelectCurrentFrame,
-    SEQUENCER_OT_SelectChannelStrips,
-    SEQUENCER_OT_SelectLockedStrips,
-    SEQUENCER_OT_SelectMuteStrips,
-    SEQUENCER_OT_AudioMuteToggle,
-    SEQUENCER_OT_SetPreviewRange,
-    SEQUENCER_OT_PreviewSelected,
-    SEQUENCER_OT_SplitRemove,
-    SEQUENCER_OT_DeleteLift,
-    SEQUENCER_OT_RippleDelete,
-    SEQUENCER_OT_ZoomVertical,
-    SEQUENCER_OT_MatchFrame,
-    SEQUENCER_OT_Split,
-    SEQUENCER_OT_ExtendToFill,
-    SEQUENCER_OT_Move,
-    SEQUENCER_OT_Concatenate,
-    SEQUENCER_OT_SplitMode,
+    SEQUENCER_OT_crossfade_sounds,
+    SEQUENCER_OT_cut_multicam,
+    SEQUENCER_OT_deinterlace_selected_movies,
+    SEQUENCER_OT_reverse_selected_movies,
+    SEQUENCER_OT_flip_x_selected_movies,
+    SEQUENCER_OT_flip_y_selected_movies,
+    SEQUENCER_OT_Show_waveform_selected_sounds,
+    SEQUENCER_OT_select_current_frame,
+    SEQUENCER_OT_select_channel_strips,
+    SEQUENCER_OT_select_locked_strips,
+    SEQUENCER_OT_select_mute_strips,
+    SEQUENCER_OT_audio_mute_toggle,
+    SEQUENCER_OT_set_preview_range,
+    SEQUENCER_OT_preview_selected,
+    SEQUENCER_OT_split_remove,
+    SEQUENCER_OT_delete_lift,
+    SEQUENCER_OT_ripple_delete,
+    SEQUENCER_OT_Zoom_vertical,
+    SEQUENCER_OT_match_frame,
+    SEQUENCER_OT_split,
+    SEQUENCER_OT_extend_to_fill,
+    SEQUENCER_OT_move,
+    SEQUENCER_OT_concatenate,
+    SEQUENCER_OT_split_mode,
 )
